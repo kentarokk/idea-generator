@@ -5,8 +5,15 @@ import { useState } from "react";
 export default function Home() {
   const [isShow, setIsShow] = useState(false);
   const [ideaText, setIdeaText] = useState("");
+  const [ideaList, setIdeaList] = useState<idea[]>([]);
   const [word_1, setWord_1] = useState<String>("");
   const [word_2, setWord_2] = useState<String>("");
+
+  type idea = {
+    word_1: String;
+    word_2: String;
+    idea: String;
+  };
 
   const clickBtn = () => {
     setIsShow(true);
@@ -15,7 +22,17 @@ export default function Home() {
     setWord_2(wordlist_2[Math.floor(Math.random() * wordlist_2.length)]);
   };
 
-  const createIdea = () => {};
+  const createIdea = () => {
+    if (ideaText === "") return;
+    const newIdea = {
+      word_1: word_1,
+      word_2: word_2,
+      idea: ideaText,
+    };
+    const newIdeaList = [...ideaList, newIdea];
+    setIdeaList(newIdeaList);
+    setIdeaText("");
+  };
 
   const wordlist_1 = [
     "掃除機",
@@ -47,7 +64,7 @@ export default function Home() {
               <div className="px-6 py-3 w-[220px] text-center border-solid border-2 border-gray-400 rounded-md">
                 <span className="text-gray-500">{word_1}</span>
               </div>
-              <span>✕</span>
+              <span className="text-gray-500">✕</span>
               <div className="px-6 py-3 w-[220px] text-center border-solid border-2 border-gray-400 rounded-md">
                 <span className="text-gray-500">{word_2}</span>
               </div>
@@ -60,10 +77,25 @@ export default function Home() {
                 onChange={(event) => setIdeaText(event.target.value)}
                 className="bg-slate-200 w-[400px] px-6 py-2 outline-none"
               />
-              <button className="bg-slate-400 text-white py-2 px-4 rounded-md">
+              <button
+                onClick={createIdea}
+                className="bg-slate-400 text-white py-2 px-4 rounded-md"
+              >
                 Create
               </button>
             </div>
+            {ideaList.map((idea) => {
+              return (
+                <div className="w-[440px] mt-4 p-4 border border-yellow-500 rounded-md flex flex-col gap-4 justify-center items-center">
+                  <p className="text-center">{idea.idea}</p>
+                  <div className="text-center flex items-center justify-center gap-4">
+                    <span className="w-[150px] text-center">{idea.word_1}</span>
+                    <span>✕</span>
+                    <span className="w-[150px] text-center">{idea.word_2}</span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
