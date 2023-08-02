@@ -23,6 +23,10 @@ export default function Home() {
     setWord_2(wordlist_2[Math.floor(Math.random() * wordlist_2.length)]);
   };
 
+  const signIn = () => {
+    alert("sign in ");
+  };
+
   const createIdea = () => {
     if (ideaText === "") return;
     const newIdea = {
@@ -456,73 +460,86 @@ export default function Home() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="flex justify-center items-center flex-col gap-3">
-        <motion.div
-          whileHover={{ scale: [1, 1.2, 1, 1.1] }}
-          transition={{ duration: 0.5, repeatDelay: 0.5 }}
+    <div>
+      <nav className="flex justify-around items-center mx-[10%] mt-2 border-b-2">
+        <div>
+          <h1 className="text-gray-500 text-2xl mb-2">IdeaGenerator</h1>
+        </div>
+        <button
+          onClick={signIn}
+          className="px-4 py-2 mb-2 mx-4 transition-all duration-400 bg-gray-400 rounded-md text-white text-xl hover:bg-gray-300"
         >
-          <button
-            onClick={clickBtn}
-            className="mt-12 p-5 transition-all duration-400 bg-yellow-500 rounded-md text-white text-2xl hover:bg-yellow-400"
+          signIn
+        </button>
+      </nav>
+      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <div className="flex justify-center items-center flex-col gap-3">
+          <motion.div
+            whileHover={{ scale: [1, 1.2, 1, 1.1] }}
+            transition={{ duration: 0.5, repeatDelay: 0.5 }}
           >
-            Generate Idea
-          </button>
-        </motion.div>
-        <AnimatePresence>
-          {isShow && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1 }}
+            <button
+              onClick={clickBtn}
+              className="mt-12 p-5 transition-all duration-400 bg-yellow-500 rounded-md text-white text-2xl hover:bg-yellow-400"
             >
-              <div className="flex flex-col items-center">
-                <div className="mt-12 flex gap-5 justify-center items-center">
-                  <div className="px-6 py-3 w-[220px] text-center border-solid border-2 border-gray-400 rounded-md">
-                    <span className="text-gray-500">{word_1}</span>
-                  </div>
-                  <span className="text-gray-500">✕</span>
-                  <div className="px-6 py-3 w-[220px] text-center border-solid border-2 border-gray-400 rounded-md">
-                    <span className="text-gray-500">{word_2}</span>
-                  </div>
-                </div>
-                <div className="mt-24 items-center">
-                  <p className="text-gray-500">Memo your idea!</p>
-                  <input
-                    type="text"
-                    value={ideaText}
-                    onChange={(event) => setIdeaText(event.target.value)}
-                    className="bg-slate-200 w-[400px] px-6 py-2 outline-none"
-                  />
-                  <button
-                    onClick={createIdea}
-                    className="bg-slate-400 text-white py-2 px-4 rounded-md"
-                  >
-                    Create
-                  </button>
-                </div>
-                {ideaList.map((idea) => {
-                  return (
-                    <div className="w-[440px] mt-4 p-4 border border-yellow-500 rounded-md flex flex-col gap-4 justify-center items-center">
-                      <p className="text-center">{idea.idea}</p>
-                      <div className="text-center flex items-center justify-center gap-4">
-                        <span className="w-[150px] text-center">
-                          {idea.word_1}
-                        </span>
-                        <span>✕</span>
-                        <span className="w-[150px] text-center">
-                          {idea.word_2}
-                        </span>
-                      </div>
+              Generate Idea
+            </button>
+          </motion.div>
+          <AnimatePresence>
+            {isShow && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1 }}
+              >
+                <div className="flex flex-col items-center">
+                  <div className="mt-12 flex gap-5 justify-center items-center">
+                    <div className="px-6 py-3 w-[220px] text-center border-solid border-2 border-gray-400 rounded-md">
+                      <span className="text-gray-500">{word_1}</span>
                     </div>
-                  );
-                })}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </main>
+                    <span className="text-gray-500">✕</span>
+                    <div className="px-6 py-3 w-[220px] text-center border-solid border-2 border-gray-400 rounded-md">
+                      <span className="text-gray-500">{word_2}</span>
+                    </div>
+                  </div>
+                  <div className="mt-24 items-center">
+                    <p className="text-gray-500">Memo your idea!</p>
+                    <input
+                      type="text"
+                      value={ideaText}
+                      onChange={(event) => setIdeaText(event.target.value)}
+                      className="bg-slate-200 w-[400px] px-6 py-2 outline-none"
+                    />
+                    <button
+                      onClick={createIdea}
+                      className="bg-slate-400 text-white py-2 px-4 rounded-md"
+                    >
+                      Create
+                    </button>
+                  </div>
+                  {ideaList.map((idea) => {
+                    return (
+                      <div className="w-[440px] mt-4 p-4 border border-yellow-500 rounded-md flex flex-col gap-4 justify-center items-center">
+                        <p className="text-center">{idea.idea}</p>
+                        <div className="text-center flex items-center justify-center gap-4">
+                          <span className="w-[150px] text-center">
+                            {idea.word_1}
+                          </span>
+                          <span>✕</span>
+                          <span className="w-[150px] text-center">
+                            {idea.word_2}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </main>
+    </div>
   );
 }
