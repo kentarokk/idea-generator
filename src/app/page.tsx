@@ -461,9 +461,9 @@ export default function Home() {
 
   return (
     <div>
-      <nav className="flex justify-between items-center mx-4 md:mx-[10%] mt-2 border-b-2">
+      <nav className="flex justify-between items-center py-2 mx-4 md:mx-[10%] mt-2 border-b-2">
         <div>
-          <h1 className="text-gray-500 text-2xl mb-2">IdeaGenerator</h1>
+          <img src="logo.svg" width={200} alt="logo" />
         </div>
         <button
           onClick={signIn}
